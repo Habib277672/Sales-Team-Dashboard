@@ -1,11 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import { supabase } from "../SupabaseClient";
-import { Chart } from "react-charts";
 import { UpdateForm } from "../Components/UI/UpdateForm";
 import { InserForm } from "../Components/UI/InsertForm";
 import { DeleteForm } from "../Components/UI/DeleteForm";
 
-export const Dashboard = () => {
+// import { Chart } from "react-charts";
+const Chart = React.lazy(() =>
+  import("react-charts").then((module) => ({
+    default: module.Chart,
+  })),
+);
+
+const Dashboard = () => {
   const [metrics, setMetrics] = useState([]);
 
   // Fetch data from Supabase
@@ -107,16 +113,18 @@ export const Dashboard = () => {
 
           {/* Chart container must have height */}
           <div className="h-75 w-full md:h-100">
-            <Chart
-              options={{
-                data: chartData,
-                primaryAxis,
-                secondaryAxes,
-                type: "bar",
-                defaultColors: ["#22c55e"],
-                tooltip: { show: false },
-              }}
-            />
+            <Suspense>
+              <Chart
+                options={{
+                  data: chartData,
+                  primaryAxis,
+                  secondaryAxes,
+                  type: "bar",
+                  defaultColors: ["#22c55e"],
+                  tooltip: { show: false },
+                }}
+              />
+            </Suspense>
           </div>
         </div>
 
@@ -159,3 +167,5 @@ export const Dashboard = () => {
     </section>
   );
 };
+
+export default Dashboard;

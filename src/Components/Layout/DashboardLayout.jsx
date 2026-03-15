@@ -1,12 +1,17 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { Header } from "../UI/Header";
-import { Dashboard } from "../../Pages/Dashboard";
+
+const Dashboard = React.lazy(() => import("../../Pages/Dashboard"));
 
 export const DashboardLayout = () => {
   return (
     <section className="h-screen min-h-screen w-full">
       <Header />
-      <Dashboard />
+      <Suspense
+        fallback={<p className="font-semibold">Wait Dashboard is Loading</p>}
+      >
+        <Dashboard />
+      </Suspense>
     </section>
   );
 };
