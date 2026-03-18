@@ -59,19 +59,19 @@ const Users = () => {
     <div className="w-full overflow-auto p-4">
       <h2 className="mb-4 text-xl font-bold">Sales Employees</h2>
 
-      {/* 🔍 Search */}
+      {/* Search */}
       <input
         type="text"
         placeholder="Search user..."
         value={search}
         onChange={(e) => {
           setSearch(e.target.value);
-          setPage(1); // reset page
+          setPage(1);
         }}
         className="mb-4 w-full max-w-sm rounded border px-3 py-2 transition duration-300 focus:border-green-500 focus:ring-2 focus:ring-green-300 focus:outline-none"
       />
 
-      {/* 📊 Table */}
+      {/* Table */}
       <table className="min-w-full table-auto border border-gray-300">
         <thead className="bg-green-100">
           <tr>
@@ -100,7 +100,7 @@ const Users = () => {
         </tbody>
       </table>
 
-      {/* 📄 Pagination */}
+      {/* Pagination */}
       <div className="mt-4 flex items-center gap-3">
         <button
           onClick={() => setPage((p) => Math.max(p - 1, 1))}
