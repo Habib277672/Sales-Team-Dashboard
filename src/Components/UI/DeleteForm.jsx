@@ -5,7 +5,7 @@ import { supabase } from "../../SupabaseClient";
 export const DeleteForm = ({ metrics }) => {
   const [error, submitAction, isPending] = useActionState(
     async (previousState, formData) => {
-      const id = Number(formData.get("id")); // actual database id
+      const id = Number(formData.get("id"));
 
       const { error } = await supabase
         .from("sales_deals")

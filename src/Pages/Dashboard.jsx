@@ -4,79 +4,66 @@ import { UpdateForm } from "../Components/UI/UpdateForm";
 import { InserForm } from "../Components/UI/InsertForm";
 import { DeleteForm } from "../Components/UI/DeleteForm";
 
-// import { Chart } from "react-charts";
+// Lazy load Chart
 const Chart = React.lazy(() =>
-  import("react-charts").then((module) => ({
-    default: module.Chart,
-  })),
+  import("react-charts").then((module) => ({ default: module.Chart })),
 );
 
 const Dashboard = () => {
   const [metrics, setMetrics] = useState([]);
 
-  // Fetch data from Supabase
+  // Fetch data + Realtime updates
   useEffect(() => {
-    const channel = supabase
-      .channel("deal-changes")
-      .on(
-        "postgres_changes",
-        {
-          event: "*",
-          schema: "public",
-          table: "sales_deals",
-        },
-        (payload) => {
-          fetchData(payload);
-        },
-      )
-      .subscribe((status) => {
-        console.log("Realtime status:", status);
-      });
-
     const fetchData = async () => {
       try {
         const { data, error } = await supabase
           .from("sales_deals")
-          .select(`id,name,value`)
+          .select("id,name,value")
           .order("value", { ascending: true });
 
-        if (error) {
-          console.log("Supabase error:", error);
-        } else {
-          setMetrics(data || []);
-        }
-      } catch (error) {
-        console.error("Error while fetching data:", error);
+        if (error) console.log("Supabase error:", error);
+        else setMetrics(data || []);
+      } catch (err) {
+        console.error(err);
       }
     };
 
     fetchData();
 
-    return () => {
-      supabase.removeChannel(channel);
-    };
+    const channel = supabase
+      .channel("deal-changes")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "sales_deals" },
+        () => fetchData(),
+      )
+      .subscribe();
+
+    return () => supabase.removeChannel(channel);
   }, []);
 
-  // Calculate max value for Y-axis
-  const y_max = () => {
-    if (metrics.length > 0) {
-      const maxValue = Math.max(...metrics.map((m) => m.value));
-      return maxValue + 2000;
-    }
-    return 5000;
-  };
+  // Get Top 4 Highest Values
+  const top4Metrics = [...metrics]
+    .sort((a, b) => b.value - a.value)
+    .slice(0, 4);
 
-  // Prepare chart data
+  // Max value for Y-axis
+  const maxValue =
+    top4Metrics.length > 0
+      ? Math.max(...top4Metrics.map((m) => m.value))
+      : 5000;
+
+  // Prepare Chart Data
   const chartData = [
     {
-      data: metrics.map((m) => ({
+      data: top4Metrics.map((m) => ({
         primary: `${m.name} id = ${m.id}`,
         secondary: m.value,
       })),
     },
   ];
 
-  // Define axes
+  // Chart Axes
   const primaryAxis = {
     getValue: (d) => d.primary,
     scaleType: "band",
@@ -89,11 +76,8 @@ const Dashboard = () => {
       getValue: (d) => d.secondary,
       scaleType: "linear",
       min: 0,
-      max: y_max(),
-      padding: {
-        top: 20,
-        bottom: 40,
-      },
+      max: maxValue + 2000,
+      padding: { top: 20, bottom: 40 },
     },
   ];
 
@@ -108,12 +92,13 @@ const Dashboard = () => {
         {/* Chart Card */}
         <div className="mb-8 rounded-xl bg-white p-4 shadow-md md:p-6">
           <h2 className="mb-4 text-lg font-semibold text-gray-700">
-            Total Sales This Quarter ($)
+            Top 4 Sales This Quarter ($)
           </h2>
 
-          {/* Chart container must have height */}
           <div className="h-75 w-full md:h-100">
-            <Suspense>
+            <Suspense
+              fallback={<p className="mt-10 text-center">Loading Chart...</p>}
+            >
               <Chart
                 options={{
                   data: chartData,
@@ -121,7 +106,7 @@ const Dashboard = () => {
                   secondaryAxes,
                   type: "bar",
                   defaultColors: ["#22c55e"],
-                  tooltip: { show: false },
+                  tooltip: { show: true },
                 }}
               />
             </Suspense>
@@ -135,7 +120,6 @@ const Dashboard = () => {
             <h2 className="mb-4 text-lg font-semibold text-gray-700">
               Add New User
             </h2>
-
             <div className="w-full">
               <InserForm />
             </div>
@@ -146,7 +130,6 @@ const Dashboard = () => {
             <h2 className="mb-4 text-lg font-semibold text-gray-700">
               Update Existing User Value
             </h2>
-
             <div className="w-full">
               <UpdateForm metrics={metrics} />
             </div>
@@ -157,7 +140,6 @@ const Dashboard = () => {
             <h2 className="mb-4 text-lg font-semibold text-gray-700">
               Delete Existing User
             </h2>
-
             <div className="w-full">
               <DeleteForm metrics={metrics} />
             </div>

@@ -5,7 +5,6 @@ import { supabase } from "../../SupabaseClient";
 export const UpdateForm = ({ metrics }) => {
   const [error, submitAction, isPending] = useActionState(
     async (previousState, formData) => {
-      // Get selected user's id and the value to add
       const id = Number(formData.get("id"));
       const valueToAdd = Number(formData.get("value"));
 
@@ -59,52 +58,39 @@ export const UpdateForm = ({ metrics }) => {
         className="flex flex-col gap-4 md:flex-row md:items-end"
       >
         {/* Select User */}
-        <div className="flex w-full flex-col">
-          <label
-            htmlFor="deal-id"
-            className="mb-1 text-sm font-medium text-gray-700"
-          >
+        <div className="flex w-full flex-col md:w-1/3">
+          <label className="mb-1 text-sm font-medium text-gray-700">
             Select User
           </label>
 
           <select
-            id="deal-id"
             name="id"
-            defaultValue={metrics?.[0]?.id || ""}
             disabled={isPending}
-            className="rounded-md border border-gray-300 px-3 py-2 transition duration-300 outline-none focus:border-none focus:border-green-500 focus:ring-2 focus:ring-green-200"
+            className="w-full rounded-md border border-gray-300 px-3 py-2 outline-none focus:ring-2 focus:ring-green-200"
           >
             {generateOptions()}
           </select>
         </div>
 
-        {/* Amount to Add */}
-        <div className="flex w-full flex-col">
-          <label
-            htmlFor="deal-value"
-            className="mb-1 text-sm font-medium text-gray-700"
-          >
+        {/* Amount */}
+        <div className="flex w-full flex-col md:w-1/3">
+          <label className="mb-1 text-sm font-medium text-gray-700">
             Amount ($)
           </label>
 
           <input
-            id="deal-value"
             type="number"
             name="value"
-            defaultValue={0}
-            min={0}
-            step={10}
-            aria-required="true"
-            aria-label="Deal amount in dollars"
-            className="rounded-md border border-gray-300 px-3 py-2 outline-none focus:border-green-500 focus:ring-2 focus:ring-green-200"
+            placeholder="Enter amount"
+            className="w-full rounded-md border border-gray-300 px-3 py-2 outline-none focus:ring-2 focus:ring-green-200"
           />
         </div>
 
-        {/* Submit Button */}
+        {/* Button */}
         <button
           type="submit"
           disabled={isPending}
-          className="h-10 cursor-pointer rounded-md bg-green-500 px-6 font-medium text-white transition duration-300 hover:scale-[1.03] hover:bg-green-600 active:scale-95 disabled:opacity-60"
+          className="h-10 w-full cursor-pointer rounded-md bg-green-500 px-6 font-medium text-white transition duration-300 hover:scale-[1.03] hover:bg-green-600 active:scale-95 md:w-auto"
         >
           {isPending ? "Updating..." : "Update"}
         </button>
