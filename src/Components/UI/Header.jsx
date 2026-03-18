@@ -14,7 +14,7 @@ export const Header = ({ setUserSession }) => {
     } else {
       if (setUserSession) setUserSession(null);
 
-      navigate("/Sales-Team-Dashboard/", { replace: true });
+      navigate("/", { replace: true });
     }
   };
 
@@ -22,14 +22,14 @@ export const Header = ({ setUserSession }) => {
     <header className="flex h-20 w-full items-center justify-between bg-green-500 px-6 py-4 text-white">
       <h1 className="flex items-center gap-4">
         <BsAsterisk className="hidden md:flex md:text-2xl" />
-        <NavLink to="/Sales-Team-Dashboard/Dashboard">
+        <NavLink to="/dashboard">
           <span className="-ml-3 text-lg font-extrabold md:text-2xl">
             Sales Team Dashboard
           </span>
         </NavLink>
       </h1>
       <div className="flex gap-2 md:gap-4">
-        <NavLink to="/Sales-Team-Dashboard/Dashboard/users">
+        <NavLink to="users">
           <button className="cursor-pointer rounded border-2 border-green-700 p-2 text-xs font-bold text-white shadow-xl transition duration-300 hover:scale-[1.03] active:scale-95 md:px-4">
             Users
           </button>

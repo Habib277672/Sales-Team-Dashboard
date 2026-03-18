@@ -68,7 +68,7 @@ export const ForgetPassword = () => {
           <p className="mt-4 text-center text-sm text-neutral-700">
             Want to go Back to?{" "}
             <NavLink
-              to="/Sales-Team-Dashboard/"
+              to="/"
               className="font-medium text-green-600 hover:underline"
             >
               Sign In

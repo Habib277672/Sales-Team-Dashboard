@@ -24,7 +24,7 @@ export const SignIn = () => {
     }
     if (data.user.aud === "authenticated") {
       alert("Successfully Logged In!");
-      navigate("/Sales-Team-Dashboard/dashboard");
+      navigate("/dashboard");
     }
 
     setFormData({
@@ -90,7 +90,7 @@ export const SignIn = () => {
 
               <span className="text-right">
                 <NavLink
-                  to="/Sales-Team-Dashboard/forgetpassword"
+                  to="/forgetpassword"
                   className="text-xs text-green-600 hover:underline sm:text-sm"
                 >
                   Forget Password?
@@ -126,7 +126,7 @@ export const SignIn = () => {
           <p className="mt-4 text-center text-sm text-neutral-700">
             Don't have an Account?{" "}
             <NavLink
-              to="/Sales-Team-Dashboard/signup"
+              to="/signup"
               className="font-medium text-green-600 hover:underline"
             >
               Sign Up

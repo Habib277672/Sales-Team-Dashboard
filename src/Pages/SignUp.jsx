@@ -19,7 +19,7 @@ export const SignUp = () => {
         data: {
           name: formData.name,
         },
-        emailRedirectTo: `${window.location.origin}/Sales-Team-Dashboard/`,
+        emailRedirectTo: `${window.location.origin}/Sales-Team-Dashboard/#/`,
       },
     });
 
@@ -104,7 +104,7 @@ export const SignUp = () => {
           <p className="mt-4 text-center text-sm text-neutral-700">
             Don't have an Account?{" "}
             <NavLink
-              to="/Sales-Team-Dashboard"
+              to="/"
               className="font-medium text-green-600 hover:underline"
             >
               Sign In
