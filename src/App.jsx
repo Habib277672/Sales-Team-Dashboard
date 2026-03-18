@@ -1,6 +1,6 @@
 import React, { useEffect, useState, Suspense } from "react";
 import "./App.css";
-import { createHashRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { DashboardLayout } from "./Components/Layout/DashboardLayout";
 import { SignIn } from "./Pages/SignIn";
 import { SignUp } from "./Pages/SignUp";
@@ -31,13 +31,19 @@ const App = () => {
     return () => listener.subscription.unsubscribe();
   }, []);
 
-  const router = createHashRouter([
-    { path: "/", element: <SignIn /> },
-    { path: "/signup", element: <SignUp /> },
-    { path: "/forgetpassword", element: <ForgetPassword /> },
-    { path: "/updatepassword", element: <UpdatePassword /> },
+  const router = createBrowserRouter([
+    { path: "/Sales-Team-Dashboard/", element: <SignIn /> },
+    { path: "/Sales-Team-Dashboard/signup", element: <SignUp /> },
     {
-      path: "/dashboard",
+      path: "/Sales-Team-Dashboard/forgetpassword",
+      element: <ForgetPassword />,
+    },
+    {
+      path: "/Sales-Team-Dashboard/updatepassword",
+      element: <UpdatePassword />,
+    },
+    {
+      path: "/Sales-Team-Dashboard/Dashboard",
       element: (
         <ProtectedRoute isLoading={isLoading} userSession={userSession}>
           <DashboardLayout />
@@ -48,7 +54,9 @@ const App = () => {
           index: true,
           element: (
             <Suspense
-              fallback={<p className="mt-10 text-center">Loading...</p>}
+              fallback={
+                <p className="mt-10 text-center">Loading Dashboard...</p>
+              }
             >
               <Dashboard />
             </Suspense>
@@ -58,7 +66,7 @@ const App = () => {
           path: "users",
           element: (
             <Suspense
-              fallback={<p className="mt-10 text-center">Loading...</p>}
+              fallback={<p className="mt-10 text-center">Loading Users...</p>}
             >
               <Users />
             </Suspense>
