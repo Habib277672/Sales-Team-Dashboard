@@ -32,18 +32,18 @@ const App = () => {
   }, []);
 
   const router = createBrowserRouter([
-    { path: "/Sales-Team-Dashboard/", element: <SignIn /> },
-    { path: "/Sales-Team-Dashboard/signup", element: <SignUp /> },
+    { path: "/", element: <SignIn /> },
+    { path: "/signup", element: <SignUp /> },
     {
-      path: "/Sales-Team-Dashboard/forgetpassword",
+      path: "/forgetpassword",
       element: <ForgetPassword />,
     },
     {
-      path: "/Sales-Team-Dashboard/updatepassword",
+      path: "/updatepassword",
       element: <UpdatePassword />,
     },
     {
-      path: "/Sales-Team-Dashboard/Dashboard",
+      path: "/dashboard",
       element: (
         <ProtectedRoute isLoading={isLoading} userSession={userSession}>
           <DashboardLayout />

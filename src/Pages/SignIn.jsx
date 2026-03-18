@@ -24,7 +24,7 @@ export const SignIn = () => {
     }
     if (data.user.aud === "authenticated") {
       alert("Successfully Logged In!");
-      navigate("/Sales-Team-Dashboard/dashboard");
+      navigate("/dashboard");
     }
 
     setFormData({
@@ -37,7 +37,7 @@ export const SignIn = () => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: `${window.location.origin}/Sales-Team-Dashboard/Dashboard`,
+        redirectTo: `${window.location.origin}/dashboard`,
       },
     });
     if (error) {
@@ -90,7 +90,7 @@ export const SignIn = () => {
 
               <span className="text-right">
                 <NavLink
-                  to="/Sales-Team-Dashboard/forgetpassword"
+                  to="/forgetpassword"
                   className="text-xs text-green-600 hover:underline sm:text-sm"
                 >
                   Forget Password?
@@ -103,12 +103,6 @@ export const SignIn = () => {
               >
                 Sign In
               </button>
-
-              {/* {error && (
-                <div className="text-center text-xs text-red-400" role="alert">
-                  {error.message}
-                </div>
-              )} */}
 
               <p className="-mt-2 text-center">--- or ---</p>
 
@@ -126,7 +120,7 @@ export const SignIn = () => {
           <p className="mt-4 text-center text-sm text-neutral-700">
             Don't have an Account?{" "}
             <NavLink
-              to="/Sales-Team-Dashboard/signup"
+              to="/signup"
               className="font-medium text-green-600 hover:underline"
             >
               Sign Up

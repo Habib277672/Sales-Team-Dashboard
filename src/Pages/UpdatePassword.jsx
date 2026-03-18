@@ -15,7 +15,7 @@ export const UpdatePassword = () => {
       email: formData.email,
       password: formData.password,
       options: {
-        emailRedirectTo: `${window.location.origin}/Sales-Team-Dashboard/`,
+        emailRedirectTo: `${window.location.origin}/`,
       },
     });
 
@@ -82,7 +82,7 @@ export const UpdatePassword = () => {
           <p className="mt-4 text-center text-sm text-neutral-700">
             Want to go Back to?{" "}
             <NavLink
-              to="/Sales-Team-Dashboard/"
+              to="/"
               className="font-medium text-green-600 hover:underline"
             >
               Sign In

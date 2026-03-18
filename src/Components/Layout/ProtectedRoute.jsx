@@ -7,7 +7,7 @@ export const ProtectedRoute = ({ userSession, isLoading, children }) => {
   }
 
   if (!userSession) {
-    return <Navigate to="/Sales-Team-Dashboard/" replace />;
+    return <Navigate to="/" replace />;
   }
 
   return children;
