@@ -19,7 +19,7 @@ export const SignUp = () => {
         data: {
           name: formData.name,
         },
-        emailRedirectTo: `${window.location.origin}/`,
+        emailRedirectTo: `https://sales-team-dashboard-ten.vercel.app/`,
       },
     });
 

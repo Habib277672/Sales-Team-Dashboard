@@ -15,7 +15,7 @@ export const UpdatePassword = () => {
       email: formData.email,
       password: formData.password,
       options: {
-        emailRedirectTo: `${window.location.origin}/`,
+        emailRedirectTo: `https://sales-team-dashboard-ten.vercel.app/`,
       },
     });
 
