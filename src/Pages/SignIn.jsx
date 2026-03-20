@@ -43,9 +43,6 @@ export const SignIn = () => {
     if (error) {
       console.log(error);
     }
-    // if (data.user) {
-    //   setUserSession(data);
-    // }
   };
   return (
     <>
