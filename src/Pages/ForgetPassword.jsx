@@ -6,44 +6,28 @@ export const ForgetPassword = () => {
   const [formData, setFormData] = useState({
     email: "",
   });
-  const [message, setMessage] = useState("");
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
-    setMessage(""); // reset message
-
-    // Checking email in users table if exist
-    const { data: userData, error: userError } = await supabase
-      .from("users")
-      .select("Email")
-      .eq("Email", formData.email.toLowerCase())
-      .single();
-
-    if (userError || !userData) {
-      setMessage("Enter correct Email!");
-      return;
-    }
-
-    // If Email is Existed Then Reset Password
-    const { error } = await supabase.auth.resetPasswordForEmail(
+    const { data, error } = await supabase.auth.resetPasswordForEmail(
       formData.email,
       {
         redirectTo:
           "https://sales-team-dashboard-lilac.vercel.app/updatepassword",
       },
     );
-
     if (error) {
       console.log(error);
-      setMessage("Something went wrong!");
-    } else {
-      setMessage("Check your email for reset link");
+    }
+    if (data) {
+      alert("Successfully Reset Password Please check your Email to Confirm!");
     }
 
-    setFormData({ email: "" });
+    setFormData({
+      email: "",
+    });
   };
-
   return (
     <>
       <section className="flex min-h-screen w-full items-center justify-center bg-green-50 px-4 py-6">
@@ -79,10 +63,6 @@ export const ForgetPassword = () => {
               >
                 Reset Password
               </button>
-
-              {message && (
-                <p className="text-center text-sm text-red-500">{message}</p>
-              )}
             </form>
           </div>
 
