@@ -9,6 +9,7 @@ export const SignIn = () => {
     email: "",
     password: "",
   });
+  const [message, setMessage] = useState("");
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -19,7 +20,7 @@ export const SignIn = () => {
     });
 
     if (error) {
-      alert("Please enter correct Email & Password!");
+      setMessage("Please enter correct Email & Password!");
       console.log(error);
     }
     if (data.user.aud === "authenticated") {
@@ -100,6 +101,8 @@ export const SignIn = () => {
               >
                 Sign In
               </button>
+
+              {message && <p className="text-red-500">{message}</p>}
 
               <p className="-mt-2 text-center">--- or ---</p>
 
