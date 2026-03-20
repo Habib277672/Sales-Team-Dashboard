@@ -12,10 +12,6 @@ export const ForgetPassword = () => {
 
     const { data, error } = await supabase.auth.resetPasswordForEmail(
       formData.email,
-      {
-        redirectTo:
-          "https://sales-team-dashboard-ten.vercel.app/updatepassword",
-      },
     );
     if (error) {
       console.log(error);
