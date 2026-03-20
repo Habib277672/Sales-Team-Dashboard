@@ -102,7 +102,9 @@ export const SignIn = () => {
                 Sign In
               </button>
 
-              {message && <p className="text-red-500">{message}</p>}
+              {message && (
+                <p className="text-center text-sm text-red-500">{message}</p>
+              )}
 
               <p className="-mt-2 text-center">--- or ---</p>
 
