@@ -52,7 +52,7 @@ const Users = () => {
     return () => supabase.removeChannel(channel);
   }, [page, search]);
 
-  // 📊 Total pages
+  // Total pages
   const totalPages = Math.ceil(totalCount / limit);
 
   return (

@@ -57,7 +57,6 @@ export const UpdateForm = ({ metrics }) => {
         action={submitAction}
         className="flex flex-col gap-4 md:flex-row md:items-end"
       >
-        {/* Select User */}
         <div className="flex w-full flex-col md:w-1/3">
           <label className="mb-1 text-sm font-medium text-gray-700">
             Select User
@@ -72,7 +71,6 @@ export const UpdateForm = ({ metrics }) => {
           </select>
         </div>
 
-        {/* Amount */}
         <div className="flex w-full flex-col md:w-1/3">
           <label className="mb-1 text-sm font-medium text-gray-700">
             Amount ($)
@@ -86,7 +84,6 @@ export const UpdateForm = ({ metrics }) => {
           />
         </div>
 
-        {/* Button */}
         <button
           type="submit"
           disabled={isPending}

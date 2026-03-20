@@ -4,7 +4,7 @@ import { UpdateForm } from "../Components/UI/UpdateForm";
 import { InserForm } from "../Components/UI/InsertForm";
 import { DeleteForm } from "../Components/UI/DeleteForm";
 
-// Lazy load Chart
+// Lazy loading charts
 const Chart = React.lazy(() =>
   import("react-charts").then((module) => ({ default: module.Chart })),
 );
@@ -12,7 +12,6 @@ const Chart = React.lazy(() =>
 const Dashboard = () => {
   const [metrics, setMetrics] = useState([]);
 
-  // Fetch data + Realtime updates
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -84,7 +83,6 @@ const Dashboard = () => {
   return (
     <section className="min-h-screen w-full bg-gray-100 p-4 md:p-8">
       <div className="mx-auto max-w-7xl">
-        {/* Title */}
         <h1 className="mb-8 text-2xl font-bold text-gray-800 md:text-3xl">
           Sales Dashboard
         </h1>
